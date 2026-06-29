@@ -1,7 +1,40 @@
+const defaultSiteUrl = "https://www.answerrankaudit.com";
+const defaultContactEmail = "hamza@answerrankaudit.com";
+
+function cleanEnvValue(value: string | undefined) {
+  const trimmed = value?.trim();
+  if (!trimmed || trimmed.includes("[") || trimmed.includes("]") || trimmed.includes("(") || trimmed.includes(")")) {
+    return undefined;
+  }
+  return trimmed;
+}
+
+function cleanSiteUrl(value: string | undefined) {
+  const cleaned = cleanEnvValue(value);
+  if (!cleaned) return undefined;
+  try {
+    const url = new URL(cleaned);
+    return url.protocol === "https:" || url.protocol === "http:" ? url.origin : undefined;
+  } catch {
+    return undefined;
+  }
+}
+
+function cleanEmail(value: string | undefined) {
+  const cleaned = cleanEnvValue(value);
+  if (!cleaned || cleaned === "CONTACT_EMAIL" || cleaned.includes("mailto:")) {
+    return undefined;
+  }
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleaned) ? cleaned : undefined;
+}
+
 export const site = {
   name: "AnswerRank Audit",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://www.answerrankaudit.com",
-  contactEmail: process.env.CONTACT_EMAIL || "hamza@answerrankaudit.com",
+  url: cleanSiteUrl(process.env.NEXT_PUBLIC_SITE_URL) || defaultSiteUrl,
+  contactEmail:
+    cleanEmail(process.env.NEXT_PUBLIC_CONTACT_EMAIL) ||
+    cleanEmail(process.env.CONTACT_EMAIL) ||
+    defaultContactEmail,
   title: "AnswerRank Audit | AI Visibility Snapshots for Local Service Firms",
   description:
     "See whether AI search mentions your firm or your competitors. AnswerRank Audit tests AI-style answers and provides practical visibility recommendations.",

@@ -1,10 +1,6 @@
 import { site } from "./site";
 import type { SnapshotRequestInput } from "./validation";
 
-export function cn(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ");
-}
-
 export function buildMailtoUrl(input: SnapshotRequestInput) {
   const subject = input.selectedPlan
     ? `${input.selectedPlan} - Request`

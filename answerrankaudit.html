@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>AnswerRank Audit | AI Visibility Snapshots for Local Service Firms</title>
+<meta name="description" content="See whether AI search mentions your firm or your competitors. AnswerRank Audit tests AI-style answers and provides practical visibility recommendations." />
+<meta property="og:title" content="AnswerRank Audit | AI Visibility Snapshots for Local Service Firms" />
+<meta property="og:description" content="See whether AI search mentions your firm or your competitors. AnswerRank Audit tests AI-style answers and provides practical visibility recommendations." />
+<meta property="og:type" content="website" />
+<meta property="og:url" content="https://www.answerrankaudit.com/" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="AnswerRank Audit | AI Visibility Snapshots for Local Service Firms" />
+<meta name="twitter:description" content="See whether AI search mentions your firm or your competitors." />
+<link rel="canonical" href="https://www.answerrankaudit.com/" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+<!-- Theme init: prevents flash of wrong theme -->
+<script>
+(function(){
+  try {
+    var saved = localStorage.getItem('answerrank-theme');
+    var preferred = saved || (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    document.documentElement.setAttribute('data-theme', preferred);
+  } catch (e) {
+    var fallbackTheme = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+    document.documentElement.setAttribute('data-theme', fallbackTheme);
+  }
+})();
+</script>
+
+<style>
+/* ── Reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+body{font-family:'Inter',sans-serif;font-size:16px;line-height:1.65;overflow-x:hidden;transition:background var(--theme-transition),color var(--theme-transition)}
+
+/* ── Theme: Dark (default) ── */
+:root,[data-theme="dark"]{
+  --bg-page:#06080f;
+  --bg-surface:#0b0f1c;
+  --bg-card:#111827;
+  --bg-card-alt:#1a2235;
+  --bg-card-hover:#131d30;
+  --text-primary:#f1f5f9;
+  --text-secondary:#cbd5e1;
+  --text-muted:#94a3b8;
+  --text-faint:#64748b;
+  --border-subtle:rgba(148,163,184,.10);
+  --border-default:rgba(148,163,184,.16);
+  --border-strong:rgba(148,163,184,.26);
+  --blue:#3b82f6;
+  --blue-hover:#2563eb;
+  --blue-glow:rgba(59,130,246,.13);
+  --blue-ring:rgba(59,130,246,.35);
+  --green:#34d399;
+  --red:#f87171;
+  --amber:#fbbf24;
+  --mono:'JetBrains Mono',monospace;
+  --radius-sm:6px;
+  --radius:10px;
+  --radius-lg:16px;
+  --shadow-card:0 1px 4px rgba(0,0,0,.5),0 0 0 1px rgba(148,163,184,.07);
+  --shadow-glow:0 0 48px rgba(59,130,246,.14),0 0 96px rgba(59,130,246,.05);
+  --shadow-btn:0 6px 20px rgba(59,130,246,.3);
+  --transition:.2s cubic-bezier(.4,0,.2,1);
+  --theme-transition:.25s ease;
+  --nav-bg:rgba(6,8,15,.88);
+  --hero-grid-color:rgba(148,163,184,.04);
+  --hero-glow-1:rgba(59,130,246,.14);
+  --hero-glow-2:rgba(124,58,237,.06);
+  --cta-grad-mid:rgba(30,27,75,.55);
+  --cta-spot:rgba(59,130,246,.10);
+  --disclaimer-border:rgba(148,163,184,.10);
+  --footer-note-color:#475569;
+}
+
+/* ── Theme: Light ── */
+[data-theme="light"]{
+  --bg-page:#f4f6f9;
+  --bg-surface:#ebeef3;
+  --bg-card:#ffffff;
+  --bg-card-alt:#f0f3f8;
+  --bg-card-hover:#f8fafc;
+  --text-primary:#0f172a;
+  --text-secondary:#334155;
+  --text-muted:#64748b;
+  --text-faint:#94a3b8;
+  --border-subtle:rgba(15,23,42,.07);
+  --border-default:rgba(15,23,42,.12);
+  --border-strong:rgba(15,23,42,.20);
+  --blue:#1d4ed8;
+  --blue-hover:#1e40af;
+  --blue-glow:rgba(29,78,216,.09);
+  --blue-ring:rgba(29,78,216,.30);
+  --green:#059669;
+  --red:#dc2626;
+  --amber:#b45309;
+  --shadow-card:0 1px 4px rgba(15,23,42,.08),0 0 0 1px rgba(15,23,42,.06);
+  --shadow-glow:0 4px 20px rgba(29,78,216,.08);
+  --shadow-btn:0 4px 14px rgba(29,78,216,.25);
+  --nav-bg:rgba(244,246,249,.92);
+  --hero-grid-color:rgba(15,23,42,.04);
+  --hero-glow-1:rgba(29,78,216,.08);
+  --hero-glow-2:rgba(99,102,241,.04);
+  --cta-grad-mid:rgba(219,234,254,.6);
+  --cta-spot:rgba(29,78,216,.06);
+  --disclaimer-border:rgba(15,23,42,.10);
+  --footer-note-color:#94a3b8;
+}
+
+/* ── Animations ── */
+@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes pulseGlow{0%,100%{opacity:.55}50%{opacity:1}}
+@media(prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+  .reveal{opacity:1!important;transform:none!important}
+}
+
+/* ── Utility ── */
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border-width:0}
+.reveal{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.reveal.visible{opacity:1;transform:none}
+.text-center{text-align:center}
+
+/* ── Body ── */
+body{background:var(--bg-page);color:var(--text-secondary)}
+
+/* ────────────────────────── NAV ────────────────────────── */
+.nav{position:sticky;top:0;z-index:100;padding:0 24px;background:var(--nav-bg);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border-default)}
+.nav-inner{max-width:1100px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.nav-logo{font-size:15px;font-weight:700;color:var(--text-primary);letter-spacing:-.02em;text-decoration:none;white-space:nowrap;flex-shrink:0}
+.nav-logo span{color:var(--blue)}
+.nav-links{display:flex;align-items:center;gap:2px;flex:1;justify-content:center}
+.nav-links a{font-size:13.5px;font-weight:500;color:var(--text-muted);text-decoration:none;padding:6px 11px;border-radius:var(--radius-sm);transition:color var(--transition),background var(--transition)}
+.nav-links a:hover{color:var(--text-primary);background:var(--border-subtle)}
+.nav-links a:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.nav-right{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.nav-cta{font-size:13.5px;font-weight:600;color:#fff;background:var(--blue);text-decoration:none;padding:8px 18px;border-radius:var(--radius-sm);transition:background var(--transition),box-shadow var(--transition),transform var(--transition);white-space:nowrap}
+.nav-cta:hover{background:var(--blue-hover);transform:translateY(-1px);box-shadow:0 4px 14px var(--blue-ring)}
+.nav-cta:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+/* Theme toggle */
+.theme-toggle{width:36px;height:36px;border-radius:var(--radius-sm);background:transparent;border:1px solid var(--border-default);cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--text-muted);transition:color var(--transition),background var(--transition),border-color var(--transition)}
+.theme-toggle:hover{color:var(--text-primary);background:var(--border-subtle);border-color:var(--border-strong)}
+.theme-toggle:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.theme-toggle svg{width:16px;height:16px;display:block}
+.icon-sun,.icon-moon{transition:opacity .2s,transform .2s}
+[data-theme="dark"] .icon-sun{display:block}
+[data-theme="dark"] .icon-moon{display:none}
+[data-theme="light"] .icon-sun{display:none}
+[data-theme="light"] .icon-moon{display:block}
+
+/* Mobile toggle */
+.nav-mobile-toggle{display:none;background:none;border:none;cursor:pointer;color:var(--text-primary);padding:6px;border-radius:var(--radius-sm)}
+.nav-mobile-toggle:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.nav-mobile-toggle svg{display:block;width:22px;height:22px}
+
+/* ── Mobile menu ── */
+.mobile-menu{
+  position:fixed;inset:0;top:64px;
+  background:var(--bg-page);
+  display:none;flex-direction:column;
+  padding:28px 24px;gap:0;z-index:99;
+  border-top:1px solid var(--border-default);
+  overflow-y:auto
+}
+.mobile-menu.open{display:flex}
+.mobile-menu a{
+  font-size:16.5px;font-weight:500;color:var(--text-secondary);
+  text-decoration:none;padding:15px 0;
+  border-bottom:1px solid var(--border-subtle);
+  transition:color var(--transition)
+}
+.mobile-menu a:hover{color:var(--text-primary)}
+.mobile-menu a:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:2px}
+.mobile-menu .mobile-cta{
+  margin-top:20px;border-bottom:none;
+  color:#fff;background:var(--blue);
+  padding:14px 20px;border-radius:var(--radius-sm);
+  text-align:center;font-weight:600;font-size:15px
+}
+.mobile-menu .mobile-cta:hover{background:var(--blue-hover);color:#fff}
+
+/* ────────────────────────── HERO ────────────────────────── */
+.hero{
+  min-height:88vh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center;
+  padding:100px 24px 80px;position:relative;overflow:hidden
+}
+.hero-bg{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.hero-glow{
+  position:absolute;top:-10%;left:50%;transform:translateX(-50%);
+  width:800px;height:600px;
+  background:radial-gradient(ellipse at center,var(--hero-glow-1) 0%,var(--hero-glow-2) 40%,transparent 70%);
+  animation:pulseGlow 7s ease-in-out infinite
+}
+.hero-grid{
+  position:absolute;inset:0;
+  background-image:linear-gradient(var(--hero-grid-color) 1px,transparent 1px),linear-gradient(90deg,var(--hero-grid-color) 1px,transparent 1px);
+  background-size:48px 48px;
+  mask-image:radial-gradient(ellipse 80% 60% at 50% 0%,black 30%,transparent 100%)
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:12px;font-weight:600;color:var(--blue);
+  letter-spacing:.08em;text-transform:uppercase;
+  margin-bottom:24px;animation:fadeIn .6s ease both
+}
+.hero-eyebrow-dot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:pulseGlow 2.5s ease-in-out infinite}
+.hero h1{
+  font-size:clamp(30px,5.2vw,60px);font-weight:700;
+  line-height:1.1;letter-spacing:-.03em;color:var(--text-primary);
+  max-width:860px;margin-bottom:22px;
+  animation:fadeUp .7s ease .1s both
+}
+.hero h1 em{
+  font-style:normal;
+  background:linear-gradient(135deg,#60a5fa,#818cf8);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent
+}
+[data-theme="light"] .hero h1 em{
+  background:linear-gradient(135deg,#1d4ed8,#4f46e5);
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent
+}
+.hero-sub{
+  font-size:clamp(15px,1.9vw,17.5px);color:var(--text-secondary);
+  max-width:620px;line-height:1.75;margin-bottom:36px;
+  animation:fadeUp .7s ease .2s both
+}
+.hero-ctas{
+  display:flex;flex-wrap:wrap;gap:12px;
+  justify-content:center;margin-bottom:24px;
+  animation:fadeUp .7s ease .3s both
+}
+.hero-trust{font-size:12.5px;color:var(--text-muted);animation:fadeUp .7s ease .4s both;line-height:1.6}
+
+/* ── Buttons ── */
+.btn-primary{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:15px;font-weight:600;color:#fff;
+  background:var(--blue);text-decoration:none;
+  padding:13px 26px;border-radius:var(--radius-sm);
+  border:none;cursor:pointer;
+  transition:background var(--transition),transform var(--transition),box-shadow var(--transition)
+}
+.btn-primary:hover{background:var(--blue-hover);transform:translateY(-2px);box-shadow:var(--shadow-btn)}
+.btn-primary:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.btn-secondary{
+  display:inline-flex;align-items:center;gap:8px;
+  font-size:15px;font-weight:500;color:var(--text-secondary);
+  background:transparent;border:1px solid var(--border-strong);
+  text-decoration:none;padding:13px 26px;border-radius:var(--radius-sm);
+  transition:color var(--transition),background var(--transition),transform var(--transition)
+}
+.btn-secondary:hover{color:var(--text-primary);background:var(--bg-card-alt);transform:translateY(-1px)}
+.btn-secondary:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+
+/* ── Hero card ── */
+.hero-card-wrap{
+  width:100%;max-width:660px;
+  margin:52px auto 0;
+  animation:fadeUp .85s ease .45s both;position:relative
+}
+.hero-card{
+  background:var(--bg-card);border:1px solid var(--border-strong);
+  border-radius:var(--radius-lg);overflow:hidden;
+  box-shadow:var(--shadow-card),var(--shadow-glow)
+}
+.card-header{
+  background:var(--bg-card-alt);padding:15px 20px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border-default)
+}
+.card-title{font-size:13px;font-weight:600;color:var(--text-primary);letter-spacing:-.01em}
+.card-badge{
+  font-size:11px;font-weight:500;color:var(--amber);
+  background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.2);
+  padding:3px 10px;border-radius:20px;white-space:nowrap
+}
+[data-theme="light"] .card-badge{color:#92400e;background:rgba(180,83,9,.08);border-color:rgba(180,83,9,.2)}
+.card-body{padding:20px}
+.metric-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+.metric{background:var(--bg-card-alt);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:13px 15px}
+.metric-label{font-size:10.5px;font-weight:600;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;margin-bottom:5px}
+.metric-value{font-size:22px;font-weight:700;color:var(--text-primary);font-family:var(--mono)}
+.metric-value.low{color:var(--red)}
+.metric-sub{font-size:11px;color:var(--text-muted);margin-top:2px}
+.card-table{width:100%;border-collapse:collapse;font-size:12.5px}
+.card-table th{color:var(--text-muted);font-weight:600;text-align:left;padding:8px 10px;border-bottom:1px solid var(--border-default);font-size:11px;text-transform:uppercase;letter-spacing:.06em}
+.card-table td{padding:9px 10px;border-bottom:1px solid var(--border-subtle);color:var(--text-secondary);font-family:var(--mono);font-size:12px}
+.card-table tr:last-child td{border-bottom:none}
+.status-dot{display:inline-flex;align-items:center;gap:6px}
+.dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.dot-red{background:var(--red)}
+.dot-green{background:var(--green)}
+.card-action-row{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px solid var(--border-subtle)}
+.action-label{font-size:12px;color:var(--text-muted);flex:1;line-height:1.5}
+.action-chip{
+  font-size:11.5px;font-weight:600;color:var(--blue);
+  background:var(--blue-glow);border:1px solid rgba(59,130,246,.22);
+  padding:4px 12px;border-radius:20px;white-space:nowrap;flex-shrink:0
+}
+
+/* ────────────────────────── TRUST STRIP ────────────────────────── */
+.trust-strip{
+  border-top:1px solid var(--border-default);
+  border-bottom:1px solid var(--border-default);
+  background:var(--bg-surface);padding:18px 24px
+}
+.trust-inner{
+  max-width:1100px;margin:0 auto;
+  display:flex;flex-wrap:wrap;justify-content:center;gap:8px 28px
+}
+.trust-item{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--text-muted);white-space:nowrap}
+.trust-item svg{color:var(--blue);flex-shrink:0}
+
+/* ────────────────────────── SECTIONS ────────────────────────── */
+section{padding:88px 24px}
+.section-inner{max-width:1100px;margin:0 auto}
+.section-label{font-size:11.5px;font-weight:700;color:var(--blue);letter-spacing:.10em;text-transform:uppercase;margin-bottom:12px;display:block}
+.section-title{font-size:clamp(24px,3.2vw,38px);font-weight:700;letter-spacing:-.025em;color:var(--text-primary);line-height:1.15;margin-bottom:16px}
+.section-sub{font-size:16px;color:var(--text-secondary);max-width:580px;line-height:1.75}
+.section-sub.center{margin:0 auto;text-align:center}
+.bg-surface{background:var(--bg-surface)}
+.bg-page{background:var(--bg-page)}
+
+/* ────────────────────────── PROBLEM ────────────────────────── */
+.problem-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:52px}
+.problem-card{
+  background:var(--bg-card);border:1px solid var(--border-default);
+  border-radius:var(--radius-lg);padding:30px;
+  transition:border-color var(--transition),transform var(--transition),box-shadow var(--transition)
+}
+.problem-card:hover{border-color:var(--border-strong);transform:translateY(-3px);box-shadow:var(--shadow-card)}
+.problem-icon{width:42px;height:42px;border-radius:var(--radius-sm);display:flex;align-items:center;justify-content:center;margin-bottom:18px}
+.problem-icon-red{background:rgba(248,113,113,.1);color:var(--red)}
+.problem-icon-amber{background:rgba(251,191,36,.08);color:var(--amber)}
+.problem-icon-purple{background:rgba(124,58,237,.08);color:#a78bfa}
+[data-theme="light"] .problem-icon-amber{background:rgba(180,83,9,.08);color:var(--amber)}
+[data-theme="light"] .problem-icon-purple{background:rgba(99,102,241,.08);color:#4f46e5}
+.problem-card h3{font-size:16.5px;font-weight:600;color:var(--text-primary);margin-bottom:9px}
+.problem-card p{font-size:14px;color:var(--text-muted);line-height:1.75}
+
+/* ────────────────────────── AUDIT CARDS ────────────────────────── */
+.audit-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:12px;margin-top:52px}
+.audit-card{
+  background:var(--bg-card);border:1px solid var(--border-default);
+  border-radius:var(--radius-lg);padding:26px;
+  transition:border-color var(--transition),transform var(--transition),box-shadow var(--transition)
+}
+.audit-card:hover{border-color:rgba(59,130,246,.3);transform:translateY(-3px);box-shadow:0 4px 20px var(--blue-glow)}
+.audit-num{font-size:11px;font-weight:700;color:var(--blue);font-family:var(--mono);letter-spacing:.06em;margin-bottom:14px;opacity:.75}
+.audit-card h3{font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:8px}
+.audit-card p{font-size:13.5px;color:var(--text-muted);line-height:1.7}
+
+/* ────────────────────────── HOW IT WORKS ────────────────────────── */
+.steps{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:0;margin-top:52px;position:relative
+}
+.steps::before{
+  content:'';position:absolute;top:27px;left:10%;right:10%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--border-strong) 20%,var(--border-strong) 80%,transparent)
+}
+.step{padding:0 24px 0 0;position:relative}
+.step-num{
+  width:54px;height:54px;border-radius:50%;
+  background:var(--bg-card);border:1px solid var(--border-strong);
+  display:flex;align-items:center;justify-content:center;
+  font-size:13px;font-weight:700;color:var(--blue);
+  font-family:var(--mono);margin-bottom:22px;position:relative;z-index:1
+}
+.step h3{font-size:15.5px;font-weight:600;color:var(--text-primary);margin-bottom:8px}
+.step p{font-size:13.5px;color:var(--text-muted);line-height:1.75}
+
+/* ────────────────────────── SNAPSHOT PREVIEW ────────────────────────── */
+.snapshot-card{
+  background:var(--bg-card);border:1px solid var(--border-strong);
+  border-radius:var(--radius-lg);overflow:hidden;
+  box-shadow:var(--shadow-card);margin-top:52px
+}
+.snap-header{
+  background:var(--bg-card-alt);padding:20px 26px;
+  border-bottom:1px solid var(--border-default);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px
+}
+.snap-title{font-size:15.5px;font-weight:600;color:var(--text-primary)}
+.snap-subtitle{font-size:13px;color:var(--text-muted);margin-top:3px}
+.snap-badges{display:flex;gap:8px;flex-wrap:wrap}
+.badge{font-size:11.5px;font-weight:500;padding:4px 11px;border-radius:20px}
+.badge-red{color:var(--red);background:rgba(248,113,113,.08);border:1px solid rgba(248,113,113,.18)}
+.badge-blue{color:var(--blue);background:var(--blue-glow);border:1px solid rgba(59,130,246,.2)}
+[data-theme="light"] .badge-red{color:#dc2626}
+[data-theme="light"] .badge-blue{color:#1d4ed8}
+.snap-body{padding:22px 26px}
+.snap-metrics{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:26px}
+.snap-metric{background:var(--bg-card-alt);border:1px solid var(--border-subtle);border-radius:var(--radius-sm);padding:14px}
+.snap-metric-label{font-size:10.5px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.07em;font-weight:600;margin-bottom:5px}
+.snap-metric-val{font-size:19px;font-weight:700;color:var(--text-primary);font-family:var(--mono)}
+.snap-metric-val.accent{color:var(--blue)}
+.snap-table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:var(--radius-sm)}
+.snap-table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+.snap-table th{
+  color:var(--text-muted);font-weight:600;text-align:left;
+  padding:10px 12px;border-bottom:1px solid var(--border-default);
+  font-size:11px;text-transform:uppercase;letter-spacing:.06em;
+  background:var(--bg-card-alt)
+}
+.snap-table td{padding:11px 12px;border-bottom:1px solid var(--border-subtle);color:var(--text-secondary)}
+.snap-table tr:last-child td{border-bottom:none}
+.snap-table tr:hover td{background:var(--bg-card-alt)}
+.result-tag{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500;padding:3px 10px;border-radius:20px}
+.result-no{color:var(--red);background:rgba(248,113,113,.07);border:1px solid rgba(248,113,113,.15)}
+.result-yes{color:var(--green);background:rgba(52,211,153,.07);border:1px solid rgba(52,211,153,.15)}
+[data-theme="light"] .result-no{color:#dc2626;background:rgba(220,38,38,.06);border-color:rgba(220,38,38,.14)}
+[data-theme="light"] .result-yes{color:#059669;background:rgba(5,150,105,.06);border-color:rgba(5,150,105,.14)}
+.snap-opportunity{
+  background:var(--blue-glow);border:1px solid rgba(59,130,246,.15);
+  border-radius:var(--radius-sm);padding:14px 18px;margin-top:18px;
+  font-size:13.5px;color:var(--text-secondary);line-height:1.65
+}
+.snap-opportunity strong{color:var(--blue)}
+.snap-sample-note{
+  margin-top:12px;font-size:11.5px;color:var(--text-muted);
+  text-align:center;font-style:italic
+}
+
+/* ────────────────────────── DIFFERENTIATION ────────────────────────── */
+.diff-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:52px}
+.diff-item{display:flex;gap:14px}
+.diff-icon{
+  width:36px;height:36px;border-radius:var(--radius-sm);
+  background:var(--blue-glow);color:var(--blue);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;border:1px solid rgba(59,130,246,.15)
+}
+.diff-content h3{font-size:15px;font-weight:600;color:var(--text-primary);margin-bottom:6px}
+.diff-content p{font-size:13.5px;color:var(--text-muted);line-height:1.7}
+
+/* ────────────────────────── PRICING ────────────────────────── */
+.pricing-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin-top:52px;align-items:start}
+.pricing-card{
+  background:var(--bg-card);border:1px solid var(--border-default);
+  border-radius:var(--radius-lg);padding:30px;
+  display:flex;flex-direction:column;
+  transition:border-color var(--transition),transform var(--transition),box-shadow var(--transition)
+}
+.pricing-card:hover{border-color:var(--border-strong);transform:translateY(-3px);box-shadow:var(--shadow-card)}
+.pricing-card.featured{
+  border-color:var(--blue);
+  box-shadow:0 0 0 1px rgba(59,130,246,.18),var(--shadow-glow)
+}
+.pricing-label{font-size:11px;font-weight:700;color:var(--blue);letter-spacing:.09em;text-transform:uppercase;margin-bottom:10px}
+.pricing-label.pop{
+  display:inline-block;background:var(--blue-glow);
+  border:1px solid rgba(59,130,246,.22);
+  padding:3px 10px;border-radius:20px
+}
+.pricing-name{font-size:19px;font-weight:700;color:var(--text-primary);margin-bottom:6px}
+.pricing-price{
+  font-size:34px;font-weight:700;color:var(--text-primary);
+  font-family:var(--mono);letter-spacing:-.02em;margin-bottom:4px
+}
+.pricing-price sup{font-size:17px;vertical-align:super;margin-right:2px}
+.pricing-price span{font-size:14px;font-weight:400;color:var(--text-muted)}
+.pricing-desc{font-size:13px;color:var(--text-muted);margin-bottom:22px;line-height:1.65}
+.pricing-divider{border:none;border-top:1px solid var(--border-default);margin:18px 0}
+.pricing-features{list-style:none;margin-bottom:26px;flex:1}
+.pricing-features li{
+  display:flex;align-items:flex-start;gap:10px;
+  font-size:13.5px;color:var(--text-secondary);margin-bottom:10px;line-height:1.5
+}
+.feat-check{color:var(--green);flex-shrink:0;margin-top:1px;font-size:14px;font-weight:700}
+.pricing-cta{
+  display:block;text-align:center;font-size:14px;font-weight:600;
+  color:var(--text-primary);text-decoration:none;padding:12px 20px;
+  border-radius:var(--radius-sm);
+  transition:background var(--transition),transform var(--transition),box-shadow var(--transition),color var(--transition)
+}
+.pricing-cta.outline{border:1px solid var(--border-strong);background:transparent}
+.pricing-cta.outline:hover{background:var(--bg-card-alt);border-color:var(--blue);color:var(--blue);transform:translateY(-1px)}
+.pricing-cta.solid{background:var(--blue);color:#fff;border:1px solid transparent}
+.pricing-cta.solid:hover{background:var(--blue-hover);transform:translateY(-1px);box-shadow:var(--shadow-btn)}
+.pricing-cta:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+.pricing-note{text-align:center;margin-top:18px;font-size:12.5px;color:var(--text-muted)}
+
+/* ────────────────────────── FAQ ────────────────────────── */
+.faq-list{margin-top:44px;display:flex;flex-direction:column}
+.faq-item{border-bottom:1px solid var(--border-default)}
+.faq-item:first-child{border-top:1px solid var(--border-default)}
+.faq-btn{
+  width:100%;text-align:left;background:none;border:none;cursor:pointer;
+  padding:20px 0;display:flex;align-items:center;justify-content:space-between;gap:16px;
+  color:var(--text-primary);font-size:15px;font-weight:500;
+  font-family:'Inter',sans-serif;transition:color var(--transition)
+}
+.faq-btn:hover{color:var(--blue)}
+.faq-btn:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:2px}
+.faq-chevron{
+  flex-shrink:0;color:var(--text-muted);
+  transition:transform .3s cubic-bezier(.4,0,.2,1),color var(--transition);
+  line-height:1;font-size:18px
+}
+.faq-btn[aria-expanded="true"] .faq-chevron{transform:rotate(180deg);color:var(--blue)}
+.faq-body{overflow:hidden;max-height:0;transition:max-height .35s cubic-bezier(.4,0,.2,1)}
+.faq-body.open{max-height:320px}
+.faq-body-inner{padding-bottom:20px;font-size:14.5px;color:var(--text-secondary);line-height:1.8}
+
+/* ────────────────────────── METHODOLOGY ────────────────────────── */
+.method-grid{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:start;margin-top:52px}
+.method-points{display:flex;flex-direction:column;gap:14px}
+.method-point{display:flex;gap:12px;align-items:flex-start}
+.method-dot{width:7px;height:7px;border-radius:50%;background:var(--blue);flex-shrink:0;margin-top:7px}
+.method-point p{font-size:14.5px;color:var(--text-secondary);line-height:1.72}
+.method-card{background:var(--bg-card);border:1px solid var(--border-default);border-radius:var(--radius-lg);padding:26px}
+.method-card-title{font-size:11px;font-weight:700;color:var(--blue);text-transform:uppercase;letter-spacing:.09em;margin-bottom:16px}
+.method-row{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:10px 0;border-bottom:1px solid var(--border-subtle);font-size:13px;gap:12px
+}
+.method-row:last-child{border-bottom:none}
+.method-row-label{color:var(--text-muted)}
+.method-row-value{color:var(--text-primary);font-weight:500;font-family:var(--mono);text-align:right}
+
+/* ────────────────────────── ABOUT ────────────────────────── */
+.about-card{
+  background:var(--bg-card);border:1px solid var(--border-default);
+  border-radius:var(--radius-lg);padding:32px 36px;margin-top:32px;
+  display:flex;gap:32px;align-items:flex-start
+}
+.about-accent{
+  width:4px;min-width:4px;border-radius:2px;
+  background:var(--blue);align-self:stretch;opacity:.6
+}
+.about-text{}
+.about-body{font-size:15.5px;color:var(--text-secondary);line-height:1.82;margin-bottom:16px}
+.about-contact{font-size:13.5px;color:var(--text-muted)}
+.about-contact a{color:var(--blue);text-decoration:none;font-weight:500}
+.about-contact a:hover{text-decoration:underline}
+
+/* ────────────────────────── FINAL CTA ────────────────────────── */
+.cta-bg{
+  background:var(--bg-page);
+  position:relative;overflow:hidden
+}
+.cta-bg::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 50%,var(--cta-spot),transparent 70%)
+}
+.cta-inner{position:relative;max-width:660px;margin:0 auto;text-align:center}
+.cta-inner h2{
+  font-size:clamp(24px,3.2vw,40px);font-weight:700;
+  letter-spacing:-.025em;color:var(--text-primary);
+  margin-bottom:14px;line-height:1.15
+}
+.cta-inner>p{font-size:16px;color:var(--text-secondary);margin-bottom:32px;line-height:1.75}
+.cta-email{margin-top:22px;font-size:13.5px;color:var(--text-muted)}
+.cta-email a{color:var(--blue);text-decoration:none;font-weight:500}
+.cta-email a:hover{text-decoration:underline}
+
+/* ────────────────────────── DISCLAIMER ────────────────────────── */
+.disclaimer-bg{background:var(--bg-surface);border-top:1px solid var(--border-default)}
+.disclaimer-inner{
+  max-width:800px;margin:0 auto;
+  font-size:12.5px;color:var(--text-muted);
+  line-height:1.8;text-align:center
+}
+.disclaimer-inner strong{color:var(--text-secondary)}
+
+/* ────────────────────────── FOOTER ────────────────────────── */
+.footer{background:var(--bg-page);border-top:1px solid var(--border-default);padding:40px 24px}
+.footer-inner{
+  max-width:1100px;margin:0 auto;
+  display:grid;grid-template-columns:auto 1fr auto;
+  align-items:start;gap:32px
+}
+.footer-brand{font-size:14.5px;font-weight:700;color:var(--text-primary)}
+.footer-brand span{color:var(--blue)}
+.footer-sub{font-size:12.5px;color:var(--text-muted);margin-top:4px}
+.footer-email{margin-top:8px;font-size:12px}
+.footer-email a{color:var(--blue);text-decoration:none}
+.footer-email a:hover{text-decoration:underline}
+.footer-links{display:flex;flex-wrap:wrap;gap:8px 20px;justify-content:center}
+.footer-links a{font-size:12.5px;color:var(--text-muted);text-decoration:none;transition:color var(--transition)}
+.footer-links a:hover{color:var(--text-primary)}
+.footer-links a:focus-visible{outline:2px solid var(--blue);outline-offset:2px;border-radius:2px}
+.footer-note{font-size:11.5px;color:var(--footer-note-color);max-width:320px;text-align:right;line-height:1.7}
+
+/* ────────────────────────── RESPONSIVE ────────────────────────── */
+@media(max-width:900px){
+  .footer-inner{grid-template-columns:1fr;gap:24px}
+  .footer-note{text-align:left;max-width:100%}
+  .footer-links{justify-content:flex-start}
+  .diff-grid{grid-template-columns:1fr}
+  .method-grid{grid-template-columns:1fr}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}
+  .nav-mobile-toggle{display:block}
+  section{padding:64px 20px}
+  .steps{gap:28px}
+  .steps::before{display:none}
+  .step{padding:0}
+  .about-card{padding:24px;gap:20px}
+}
+@media(max-width:560px){
+  .metric-row{grid-template-columns:1fr}
+  .snap-metrics{grid-template-columns:1fr 1fr}
+  .hero{padding:80px 20px 60px}
+  .snap-body{padding:16px}
+  .snap-header{padding:16px}
+  .hero-ctas{flex-direction:column;align-items:center}
+  .btn-primary,.btn-secondary{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ── Navigation ── -->
+<nav class="nav" aria-label="Main navigation">
+  <div class="nav-inner">
+    <a href="/" class="nav-logo" aria-label="AnswerRank Audit — home">Answer<span>Rank</span> Audit</a>
+
+    <div class="nav-links" role="list">
+      <a href="#audit" role="listitem">What we audit</a>
+      <a href="#how" role="listitem">How it works</a>
+      <a href="#pricing" role="listitem">Pricing</a>
+      <a href="#faq" role="listitem">FAQ</a>
+      <a href="#about" role="listitem">About</a>
+    </div>
+
+    <div class="nav-right">
+      <button
+        class="theme-toggle"
+        id="theme-toggle"
+        aria-label="Switch to light mode"
+        aria-pressed="false"
+        title="Toggle dark/light mode"
+      >
+        <!-- Sun icon (shown in dark mode) -->
+        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/>
+          <line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+          <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/>
+          <line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+          <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <!-- Moon icon (shown in light mode) -->
+        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+      <a href="mailto:hamza@answerrankaudit.com?subject=Snapshot%20Request" class="nav-cta">Request snapshot</a>
+    </div>
+
+    <button class="nav-mobile-toggle" aria-label="Open navigation menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg id="icon-hamburger" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+      <svg id="icon-close" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true" style="display:none"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-menu" id="mobile-menu" aria-label="Mobile navigation" role="dialog" aria-modal="true">
+  <a href="#audit">What we audit</a>
+  <a href="#how">How it works</a>
+  <a href="#pricing">Pricing</a>
+  <a href="#faq">FAQ</a>
+  <a href="#about">About</a>
+  <a href="mailto:hamza@answerrankaudit.com?subject=Snapshot%20Request" class="mobile-cta">Request snapshot</a>
+</div>
+
+<!-- ── Hero ── -->
+<section class="hero bg-page" aria-labelledby="hero-heading">
+  <div class="hero-bg" aria-hidden="true">
+    <div class="hero-glow"></div>
+    <div class="hero-grid"></div>
+  </div>
+
+  <p class="hero-eyebrow" aria-hidden="true">
+    <span class="hero-eyebrow-dot"></span>
+    AI Visibility Snapshot
+  </p>
+  <h1 id="hero-heading">Find out whether AI search <em>recommends your firm</em> — or your competitors.</h1>
+  <p class="hero-sub">AnswerRank Audit tests how ChatGPT, Perplexity, Gemini, and Google AI-style answers mention your firm, your competitors, and your services — then gives you a practical visibility action plan.</p>
+
+  <div class="hero-ctas">
+    <a href="mailto:hamza@answerrankaudit.com?subject=Sample%20Snapshot%20Request" class="btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Request a sample snapshot
+    </a>
+    <a href="#how" class="btn-secondary">See how it works</a>
+  </div>
+
+  <p class="hero-trust">No ranking guarantees. No fake metrics. A clear visibility snapshot based on tested prompts.</p>
+
+  <!-- Sample report preview -->
+  <div class="hero-card-wrap">
+    <div class="hero-card" role="img" aria-label="Sample AI Visibility Snapshot — generic sample data only">
+      <div class="card-header">
+        <div class="card-title">AI Visibility Snapshot — Sample Firm (Generic)</div>
+        <div class="card-badge">Sample only</div>
+      </div>
+      <div class="card-body">
+        <div class="metric-row">
+          <div class="metric">
+            <div class="metric-label">Firm mentioned</div>
+            <div class="metric-value low">2 / 10</div>
+            <div class="metric-sub">tested visibility checks</div>
+          </div>
+          <div class="metric">
+            <div class="metric-label">Repeated competitors</div>
+            <div class="metric-value">3</div>
+            <div class="metric-sub">firms appeared in answers</div>
+          </div>
+        </div>
+        <table class="card-table" aria-label="Sample prompt results — not real client data">
+          <thead>
+            <tr>
+              <th scope="col">Prompt (sample)</th>
+              <th scope="col">Platform</th>
+              <th scope="col">Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>best immigration lawyer in Toronto</td>
+              <td>ChatGPT</td>
+              <td><span class="status-dot"><span class="dot dot-red" aria-hidden="true"></span>Not mentioned</span></td>
+            </tr>
+            <tr>
+              <td>work permit lawyer Toronto</td>
+              <td>Perplexity</td>
+              <td><span class="status-dot"><span class="dot dot-green" aria-hidden="true"></span>Mentioned</span></td>
+            </tr>
+            <tr>
+              <td>family sponsorship lawyer Toronto</td>
+              <td>ChatGPT</td>
+              <td><span class="status-dot"><span class="dot dot-red" aria-hidden="true"></span>Not mentioned</span></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="card-action-row">
+          <span class="action-label">Sample opportunity: PR, work permit &amp; family sponsorship content signals</span>
+          <span class="action-chip">30-day plan →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Trust strip ── -->
+<div class="trust-strip" aria-label="Service attributes">
+  <div class="trust-inner">
+    <div class="trust-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      Prompt-based audit methodology
+    </div>
+    <div class="trust-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      Competitor mention tracking
+    </div>
+    <div class="trust-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      Service-specific visibility analysis
+    </div>
+    <div class="trust-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      Clear action plan included
+    </div>
+    <div class="trust-item">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      No guaranteed ranking claims
+    </div>
+  </div>
+</div>
+
+<!-- ── Problem ── -->
+<section class="bg-surface" id="problem" aria-labelledby="problem-heading">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">The problem</span>
+      <h2 class="section-title" id="problem-heading">Potential clients may be asking AI before they reach your website</h2>
+      <p class="section-sub">A growing number of people use AI tools and search engines to find local service recommendations. If competing firms appear more often in those answers, your firm may be less visible before a prospective client ever visits your website.</p>
+    </div>
+    <div class="problem-cards">
+      <div class="problem-card reveal">
+        <div class="problem-icon problem-icon-red" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        </div>
+        <h3>Your firm may be absent from AI answers</h3>
+        <p>AI-generated answers often surface a small set of firms. If your firm is not in that set, prospective clients may not encounter your name — regardless of your qualifications or reputation.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-icon problem-icon-amber" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>Competing firms may appear repeatedly</h3>
+        <p>The same competing firms often surface across multiple prompts and platforms. Repeated visibility builds familiarity and trust with potential clients before they take any action.</p>
+      </div>
+      <div class="problem-card reveal">
+        <div class="problem-icon problem-icon-purple" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="9" y1="9" x2="15" y2="15"/><line x1="15" y1="9" x2="9" y2="15"/></svg>
+        </div>
+        <h3>AI answers vary by service intent</h3>
+        <p>A search for "work permit lawyer Toronto" and "family sponsorship lawyer Toronto" may return completely different firms. Visibility gaps at the service level matter as much as overall brand awareness.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── What we audit ── -->
+<section class="bg-page" id="audit" aria-labelledby="audit-heading">
+  <div class="section-inner">
+    <div class="reveal text-center">
+      <span class="section-label">What we audit</span>
+      <h2 class="section-title" id="audit-heading">Seven dimensions of AI visibility</h2>
+      <p class="section-sub center">Each audit examines specific visibility signals — not vanity metrics. You see exactly where your firm stands and what to address first.</p>
+    </div>
+    <div class="audit-grid">
+      <div class="audit-card reveal">
+        <div class="audit-num">01</div>
+        <h3>AI prompt visibility</h3>
+        <p>We test buyer-intent prompts across multiple AI platforms and record whether your firm is mentioned, absent, or partially cited in each response.</p>
+      </div>
+      <div class="audit-card reveal">
+        <div class="audit-num">02</div>
+        <h3>Competitor mentions</h3>
+        <p>We track which competitors appear in the same answers as your services — and how consistently they surface across different prompts and platforms.</p>
+      </div>
+      <div class="audit-card reveal">
+        <div class="audit-num">03</div>
+        <h3>Service-specific visibility</h3>
+        <p>Visibility varies by service type. We test specific practice areas so you understand where gaps are largest and most actionable for your firm.</p>
+      </div>
+      <div class="audit-card reveal">
+        <div class="audit-num">04</div>
+        <h3>Source and citation patterns</h3>
+        <p>AI answers often cite specific sources. We identify which types of content and websites appear in AI-generated answers for your service area.</p>
+      </div>
+      <div class="audit-card reveal">
+        <div class="audit-num">05</div>
+        <h3>Website content gaps</h3>
+        <p>We identify service pages, topical coverage, and structural gaps that may reduce the likelihood of your firm appearing in AI-generated answers.</p>
+      </div>
+      <div class="audit-card reveal">
+        <div class="audit-num">06</div>
+        <h3>Trust and authority signals</h3>
+        <p>We review visible trust signals — directory listings, mentions, and publications — that may support or limit your firm's presence in AI-sourced answers.</p>
+      </div>
+      <div class="audit-card reveal">
+        <div class="audit-num">07</div>
+        <h3>30-day action plan</h3>
+        <p>The audit closes with a prioritised list of practical actions — content to create, gaps to address, and signals to strengthen over the next 30 days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── How it works ── -->
+<section class="bg-surface" id="how" aria-labelledby="hiw-heading">
+  <div class="section-inner">
+    <div class="reveal text-center">
+      <span class="section-label">How it works</span>
+      <h2 class="section-title" id="hiw-heading">Four steps. One clear snapshot.</h2>
+      <p class="section-sub center">A structured process designed so any business owner can understand what was tested, what was found, and what to do next — no technical background required.</p>
+    </div>
+    <div class="steps" role="list">
+      <div class="step reveal" role="listitem">
+        <div class="step-num" aria-hidden="true">01</div>
+        <h3>Define buyer-intent prompts</h3>
+        <p>We build a set of realistic prompts based on how prospective clients search for services like yours — by service type, location, and intent.</p>
+      </div>
+      <div class="step reveal" role="listitem">
+        <div class="step-num" aria-hidden="true">02</div>
+        <h3>Test multiple AI platforms</h3>
+        <p>We run the prompts across ChatGPT, Perplexity, Gemini, and Google AI-style answers where accessible — capturing structured, comparable results.</p>
+      </div>
+      <div class="step reveal" role="listitem">
+        <div class="step-num" aria-hidden="true">03</div>
+        <h3>Record and compare results</h3>
+        <p>We document mentions, absences, partial citations, repeated competitors, and sources — producing a clear picture of your current AI visibility.</p>
+      </div>
+      <div class="step reveal" role="listitem">
+        <div class="step-num" aria-hidden="true">04</div>
+        <h3>Deliver snapshot and action plan</h3>
+        <p>You receive a clear report showing what was found, where gaps exist, which competitors appeared, and what practical steps to consider in the next 30 days.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Snapshot preview ── -->
+<section class="bg-page" id="snapshot" aria-labelledby="snapshot-heading">
+  <div class="section-inner">
+    <div class="reveal text-center">
+      <span class="section-label">Sample report</span>
+      <h2 class="section-title" id="snapshot-heading">This is what you receive</h2>
+      <p class="section-sub center">A structured, readable report — not a spreadsheet or raw data export. The sample below uses entirely generic placeholder data.</p>
+    </div>
+    <div class="snapshot-card reveal">
+      <div class="snap-header">
+        <div>
+          <div class="snap-title">AI Visibility Snapshot — Sample Firm (Generic Data)</div>
+          <div class="snap-subtitle">Toronto, Ontario · Immigration Law · Tested prompts: 10</div>
+        </div>
+        <div class="snap-badges">
+          <span class="badge badge-red">2 of 10 mentioned</span>
+          <span class="badge badge-blue">3 gaps identified</span>
+        </div>
+      </div>
+      <div class="snap-body">
+        <div class="snap-metrics">
+          <div class="snap-metric">
+            <div class="snap-metric-label">Total prompts tested</div>
+            <div class="snap-metric-val accent">10</div>
+          </div>
+          <div class="snap-metric">
+            <div class="snap-metric-label">Firm mentioned</div>
+            <div class="snap-metric-val">2</div>
+          </div>
+          <div class="snap-metric">
+            <div class="snap-metric-label">Repeated competitors</div>
+            <div class="snap-metric-val">3 firms</div>
+          </div>
+          <div class="snap-metric">
+            <div class="snap-metric-label">Platforms tested</div>
+            <div class="snap-metric-val">3</div>
+          </div>
+        </div>
+        <div class="snap-table-wrap">
+          <table class="snap-table" aria-label="Sample prompt-by-prompt visibility results — generic data only">
+            <thead>
+              <tr>
+                <th scope="col">Prompt (sample)</th>
+                <th scope="col">Platform</th>
+                <th scope="col">Firm result</th>
+                <th scope="col">Competitors seen</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>"best immigration lawyer in Toronto"</td>
+                <td>ChatGPT</td>
+                <td><span class="result-tag result-no">Not mentioned</span></td>
+                <td>Firm A, Firm B</td>
+              </tr>
+              <tr>
+                <td>"work permit lawyer Toronto"</td>
+                <td>Perplexity</td>
+                <td><span class="result-tag result-yes">Mentioned</span></td>
+                <td>Firm C</td>
+              </tr>
+              <tr>
+                <td>"family sponsorship lawyer Toronto"</td>
+                <td>ChatGPT</td>
+                <td><span class="result-tag result-no">Not mentioned</span></td>
+                <td>Firm A, Firm C</td>
+              </tr>
+              <tr>
+                <td>"PR application help Toronto"</td>
+                <td>Gemini</td>
+                <td><span class="result-tag result-no">Not mentioned</span></td>
+                <td>Firm B</td>
+              </tr>
+              <tr>
+                <td>"immigration consultant Toronto"</td>
+                <td>Perplexity</td>
+                <td><span class="result-tag result-yes">Mentioned</span></td>
+                <td>Firm A</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="snap-opportunity">
+          <strong>Sample finding:</strong> Improve content signals for PR, work permit, and family sponsorship services. Firm A appears in 4 of 5 ChatGPT responses — gap analysis available in full report.
+        </div>
+        <p class="snap-sample-note">All data above is illustrative. No real firms are referenced. Your actual report will contain your firm's specific prompt results.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Differentiation ── -->
+<section class="bg-surface" id="diff" aria-labelledby="diff-heading">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">Why this is different</span>
+      <h2 class="section-title" id="diff-heading">Not generic SEO. AI-specific visibility.</h2>
+      <p class="section-sub">Traditional SEO tools track search rankings. This audit focuses on a different layer — what AI systems actually say about your firm when clients ask them directly.</p>
+    </div>
+    <div class="diff-grid reveal">
+      <div class="diff-item">
+        <div class="diff-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </div>
+        <div class="diff-content">
+          <h3>Focused on AI-style answer visibility</h3>
+          <p>We test what AI tools actually say — not what ranks in traditional blue-link results. These are different surfaces with different signals.</p>
+        </div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="diff-content">
+          <h3>Competitor mentions are shown explicitly</h3>
+          <p>We record which competitors appeared in which answers — giving you a clear picture of where you stand relative to firms clients may see first.</p>
+        </div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="diff-content">
+          <h3>Prompts mirror real service intent</h3>
+          <p>We use phrases like "work permit lawyer Toronto" — how clients actually ask — not broad keyword terms. This reveals gaps that general tools do not surface.</p>
+        </div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        </div>
+        <div class="diff-content">
+          <h3>Practical, honest recommendations</h3>
+          <p>Every report closes with actionable steps. We do not promise to manipulate AI systems or guarantee any rankings — we explain what we found and what you can address.</p>
+        </div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="diff-content">
+          <h3>Transparent testing, no black-box claims</h3>
+          <p>The audit is a snapshot of observable patterns. We do not claim access to AI training or proprietary ranking mechanisms — we test what users actually see.</p>
+        </div>
+      </div>
+      <div class="diff-item">
+        <div class="diff-icon" aria-hidden="true">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+        </div>
+        <div class="diff-content">
+          <h3>Structured, readable output</h3>
+          <p>The report is designed for a business owner or firm partner — not a technical analyst. Clear tables, clear findings, clear next steps.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Pricing ── -->
+<section class="bg-page" id="pricing" aria-labelledby="pricing-heading">
+  <div class="section-inner">
+    <div class="reveal text-center">
+      <span class="section-label">Pricing</span>
+      <h2 class="section-title" id="pricing-heading">Simple, transparent pricing</h2>
+      <p class="section-sub center">Three options depending on the depth of analysis you need. All prices in CAD unless otherwise stated.</p>
+    </div>
+    <div class="pricing-grid">
+      <div class="pricing-card reveal">
+        <div class="pricing-label">Starter</div>
+        <div class="pricing-name">Starter Snapshot</div>
+        <div class="pricing-price"><sup>$</sup>99</div>
+        <div class="pricing-desc">A quick read on your AI visibility — useful as a first look before committing to a deeper audit.</div>
+        <hr class="pricing-divider" aria-hidden="true" />
+        <ul class="pricing-features" aria-label="Starter Snapshot features">
+          <li><span class="feat-check" aria-hidden="true">✓</span> 5 buyer-intent prompts tested</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> 2 platforms (ChatGPT + Perplexity)</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> Competitor mentions recorded</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> Short visibility summary</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> Practical action notes</li>
+        </ul>
+        <a href="mailto:hamza@answerrankaudit.com?subject=Starter%20Snapshot%20%E2%80%94%20Request" class="pricing-cta outline">Request Starter Snapshot</a>
+      </div>
+
+      <div class="pricing-card featured reveal" aria-label="Full Visibility Report — most comprehensive option">
+        <div class="pricing-label pop">Most comprehensive</div>
+        <div class="pricing-name">Full Visibility Report</div>
+        <div class="pricing-price"><sup>$</sup>199</div>
+        <div class="pricing-desc">The complete picture — every service, every platform, with evidence, competitor analysis, and a structured action plan.</div>
+        <hr class="pricing-divider" aria-hidden="true" />
+        <ul class="pricing-features" aria-label="Full Visibility Report features">
+          <li><span class="feat-check" aria-hidden="true">✓</span> 20+ buyer-intent prompts tested</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> Multiple platforms tested</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> Competitor mention patterns</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> Screenshots and evidence notes</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> Service-specific findings</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> 30-day action plan</li>
+        </ul>
+        <a href="mailto:hamza@answerrankaudit.com?subject=Full%20Visibility%20Report%20%E2%80%94%20Request" class="pricing-cta solid">Request Full Report</a>
+      </div>
+
+      <div class="pricing-card reveal">
+        <div class="pricing-label">Ongoing</div>
+        <div class="pricing-name">Monthly Monitoring</div>
+        <div class="pricing-price"><sup>$</sup>149<span>/mo</span></div>
+        <div class="pricing-desc">Recurring checks to track changes in AI visibility over time and monitor competitor patterns month to month.</div>
+        <hr class="pricing-divider" aria-hidden="true" />
+        <ul class="pricing-features" aria-label="Monthly Monitoring features">
+          <li><span class="feat-check" aria-hidden="true">✓</span> Repeated prompt checks monthly</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> Visibility change tracking</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> Competitor tracking</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> Monthly summary report</li>
+          <li><span class="feat-check" aria-hidden="true">✓</span> Email support for report questions</li>
+        </ul>
+        <a href="mailto:hamza@answerrankaudit.com?subject=Monthly%20Monitoring%20%E2%80%94%20Request" class="pricing-cta outline">Start Monthly Monitoring</a>
+      </div>
+    </div>
+    <p class="pricing-note reveal">Introductory pricing while the service is being validated. Prices are subject to change with notice.</p>
+  </div>
+</section>
+
+<!-- ── FAQ ── -->
+<section class="bg-surface" id="faq" aria-labelledby="faq-heading">
+  <div class="section-inner" style="max-width:700px">
+    <div class="reveal text-center">
+      <span class="section-label">FAQ</span>
+      <h2 class="section-title" id="faq-heading">Common questions</h2>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq-1">
+          Can you guarantee that ChatGPT will recommend my firm?
+          <span class="faq-chevron" aria-hidden="true">&#8964;</span>
+        </button>
+        <div class="faq-body" id="faq-1" role="region" aria-label="Answer">
+          <div class="faq-body-inner">No. We do not guarantee AI recommendations or rankings. We analyse visible answer patterns and provide practical visibility recommendations based on what we observe during testing.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq-2">
+          Which platforms do you test?
+          <span class="faq-chevron" aria-hidden="true">&#8964;</span>
+        </button>
+        <div class="faq-body" id="faq-2" role="region" aria-label="Answer">
+          <div class="faq-body-inner">We test ChatGPT, Perplexity, Gemini, Google Search, and Google AI-style answers where available. Platform access may vary depending on regional settings and current platform capabilities.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq-3">
+          Is this the same as SEO?
+          <span class="faq-chevron" aria-hidden="true">&#8964;</span>
+        </button>
+        <div class="faq-body" id="faq-3" role="region" aria-label="Answer">
+          <div class="faq-body-inner">It overlaps with SEO in some areas, but the focus is specifically on AI-style answer visibility, competitor mentions in AI answers, and service-intent prompts. Traditional SEO tools track search rankings; this audit tracks what AI tools actually say when your clients ask them questions.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq-4">
+          Is this suitable for immigration firms?
+          <span class="faq-chevron" aria-hidden="true">&#8964;</span>
+        </button>
+        <div class="faq-body" id="faq-4" role="region" aria-label="Answer">
+          <div class="faq-body-inner">Yes. The first audit format is designed specifically for immigration lawyers and immigration consultants in Canada. The process can also be adapted for other local service businesses — contact us to discuss your situation.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq-5">
+          What exactly do I receive?
+          <span class="faq-chevron" aria-hidden="true">&#8964;</span>
+        </button>
+        <div class="faq-body" id="faq-5" role="region" aria-label="Answer">
+          <div class="faq-body-inner">A structured report showing which prompts were tested, whether your firm appeared in each result, which competitors appeared and how often, visibility gaps by service type, evidence notes, and a 30-day action plan with practical recommendations. The depth depends on the report tier you select.</div>
+        </div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-btn" aria-expanded="false" aria-controls="faq-6">
+          Do AI answers change over time?
+          <span class="faq-chevron" aria-hidden="true">&#8964;</span>
+        </button>
+        <div class="faq-body" id="faq-6" role="region" aria-label="Answer">
+          <div class="faq-body-inner">Yes. AI answers can vary by prompt wording, timing, location, personalisation settings, available sources, and platform updates. That is why we treat the audit as a visibility snapshot at a point in time — and why monthly monitoring provides ongoing tracking of how your visibility changes.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Methodology ── -->
+<section class="bg-page" id="methodology" aria-labelledby="method-heading">
+  <div class="section-inner">
+    <div class="reveal">
+      <span class="section-label">Methodology</span>
+      <h2 class="section-title" id="method-heading">How we conduct the audit</h2>
+      <p class="section-sub">Our process is transparent, reproducible, and honest about what it can and cannot measure.</p>
+    </div>
+    <div class="method-grid reveal">
+      <div class="method-points">
+        <div class="method-point">
+          <div class="method-dot" aria-hidden="true"></div>
+          <p>We test fixed, buyer-intent prompts — the same phrases each time — so results are comparable and not cherry-picked.</p>
+        </div>
+        <div class="method-point">
+          <div class="method-dot" aria-hidden="true"></div>
+          <p>We compare your firm against visible competitors across multiple AI platforms and record what each platform returns.</p>
+        </div>
+        <div class="method-point">
+          <div class="method-dot" aria-hidden="true"></div>
+          <p>We record whether your firm is mentioned, absent, partially mentioned, or cited — and note the context of each mention.</p>
+        </div>
+        <div class="method-point">
+          <div class="method-dot" aria-hidden="true"></div>
+          <p>We identify repeated competitors and practical content or trust gaps that may explain visibility differences.</p>
+        </div>
+        <div class="method-point">
+          <div class="method-dot" aria-hidden="true"></div>
+          <p>We do not claim official ranking metrics, insider platform access, or guaranteed search placement. Our findings are based on observable, testable outputs only.</p>
+        </div>
+      </div>
+      <div class="method-card">
+        <div class="method-card-title">What we track per prompt</div>
+        <div class="method-row">
+          <span class="method-row-label">Platform tested</span>
+          <span class="method-row-value">ChatGPT / Perplexity / Gemini</span>
+        </div>
+        <div class="method-row">
+          <span class="method-row-label">Firm mention status</span>
+          <span class="method-row-value">Mentioned / Absent / Partial</span>
+        </div>
+        <div class="method-row">
+          <span class="method-row-label">Competitor names seen</span>
+          <span class="method-row-value">Recorded verbatim</span>
+        </div>
+        <div class="method-row">
+          <span class="method-row-label">Source type cited</span>
+          <span class="method-row-value">Directory / Article / Website</span>
+        </div>
+        <div class="method-row">
+          <span class="method-row-label">Evidence note</span>
+          <span class="method-row-value">Screenshot / quote</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── About ── -->
+<section class="bg-surface" id="about" aria-labelledby="about-heading">
+  <div class="section-inner" style="max-width:820px">
+    <div class="reveal">
+      <span class="section-label">About</span>
+      <h2 class="section-title" id="about-heading">About AnswerRank Audit</h2>
+    </div>
+    <div class="about-card reveal">
+      <div class="about-accent" aria-hidden="true"></div>
+      <div class="about-text">
+        <p class="about-body">AnswerRank Audit is run by Hamza Sabri to help local service businesses understand how AI-style search answers mention their firm, their competitors, and their services. The service focuses on transparent prompt testing, competitor visibility patterns, and practical marketing recommendations — without ranking guarantees, fake metrics, or exaggerated claims.</p>
+        <p class="about-contact">Questions? Reach out at <a href="mailto:hamza@answerrankaudit.com">hamza@answerrankaudit.com</a></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Final CTA ── -->
+<section class="cta-bg bg-page" id="contact" aria-labelledby="cta-heading">
+  <div class="section-inner">
+    <div class="cta-inner reveal">
+      <h2 id="cta-heading">Want to know what AI search says about your firm?</h2>
+      <p>Request a sample snapshot and see which prompts mention your firm, which competitors appear, and where visibility gaps may exist.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:12px;justify-content:center;margin-bottom:0">
+        <a href="mailto:hamza@answerrankaudit.com?subject=Sample%20Snapshot%20Request" class="btn-primary">Request a sample snapshot</a>
+      </div>
+      <p class="cta-email">Or reach us directly at <a href="mailto:hamza@answerrankaudit.com">hamza@answerrankaudit.com</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ── Disclaimer ── -->
+<section class="disclaimer-bg" id="disclaimer" aria-label="Legal disclaimer" style="padding:36px 24px">
+  <div class="disclaimer-inner">
+    <p><strong>Disclaimer:</strong> AnswerRank Audit does not guarantee AI recommendations, search rankings, client acquisition, or placement in any AI-generated answer. AI answers can vary by platform, wording, timing, location, personalization, and source availability. Our reports are visibility snapshots based on tested prompts and visible answer patterns only.</p>
+  </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer class="footer" role="contentinfo">
+  <div class="footer-inner">
+    <div>
+      <div class="footer-brand">Answer<span>Rank</span> Audit</div>
+      <div class="footer-sub">AI Visibility Snapshot for local service firms</div>
+      <div class="footer-email"><a href="mailto:hamza@answerrankaudit.com">hamza@answerrankaudit.com</a></div>
+    </div>
+    <nav class="footer-links" aria-label="Footer navigation">
+      <a href="#audit">What we audit</a>
+      <a href="#how">How it works</a>
+      <a href="#pricing">Pricing</a>
+      <a href="#faq">FAQ</a>
+      <a href="#methodology">Methodology</a>
+      <a href="#about">About</a>
+      <a href="#disclaimer">Disclaimer</a>
+    </nav>
+    <div class="footer-note">
+      Not affiliated with OpenAI, Google, Perplexity, Gemini, or any AI or search provider. AnswerRank Audit is an independent audit service.
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  'use strict';
+
+  // ── Theme toggle ──
+  var html = document.documentElement;
+  var toggleBtn = document.getElementById('theme-toggle');
+
+  function getTheme(){
+    return html.getAttribute('data-theme') || 'dark';
+  }
+  function applyTheme(theme){
+    html.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('answerrank-theme', theme);
+    } catch (e) {}
+    if(toggleBtn){
+      var isDark = theme === 'dark';
+      toggleBtn.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
+      toggleBtn.setAttribute('aria-pressed', isDark ? 'false' : 'true');
+    }
+  }
+  // Sync initial state
+  applyTheme(getTheme());
+
+  if(toggleBtn){
+    toggleBtn.addEventListener('click', function(){
+      applyTheme(getTheme() === 'dark' ? 'light' : 'dark');
+    });
+  }
+
+  // ── Mobile menu ──
+  var mobileToggle = document.querySelector('.nav-mobile-toggle');
+  var mobileMenu = document.getElementById('mobile-menu');
+  var iconHamburger = document.getElementById('icon-hamburger');
+  var iconClose = document.getElementById('icon-close');
+
+  function closeMobileMenu(){
+    mobileMenu.classList.remove('open');
+    mobileToggle.setAttribute('aria-expanded', 'false');
+    iconHamburger.style.display = 'block';
+    iconClose.style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  if(mobileToggle && mobileMenu){
+    mobileToggle.addEventListener('click', function(){
+      var isOpen = mobileMenu.classList.toggle('open');
+      mobileToggle.setAttribute('aria-expanded', String(isOpen));
+      iconHamburger.style.display = isOpen ? 'none' : 'block';
+      iconClose.style.display = isOpen ? 'block' : 'none';
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+    mobileMenu.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', closeMobileMenu);
+    });
+    // Close on Escape
+    document.addEventListener('keydown', function(e){
+      if(e.key === 'Escape' && mobileMenu.classList.contains('open')){
+        closeMobileMenu();
+        mobileToggle.focus();
+      }
+    });
+  }
+
+  // ── Scroll reveal ──
+  var revealEls = document.querySelectorAll('.reveal');
+  if('IntersectionObserver' in window){
+    var observer = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry, i){
+        if(entry.isIntersecting){
+          setTimeout(function(){ entry.target.classList.add('visible'); }, i * 55);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -36px 0px' });
+    revealEls.forEach(function(el){ observer.observe(el); });
+  } else {
+    revealEls.forEach(function(el){ el.classList.add('visible'); });
+  }
+
+  // ── FAQ accordion ──
+  document.querySelectorAll('.faq-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var expanded = btn.getAttribute('aria-expanded') === 'true';
+      // Close all
+      document.querySelectorAll('.faq-btn').forEach(function(b){
+        b.setAttribute('aria-expanded', 'false');
+        var body = document.getElementById(b.getAttribute('aria-controls'));
+        if(body) body.classList.remove('open');
+      });
+      // Open this one if it was closed
+      if(!expanded){
+        btn.setAttribute('aria-expanded', 'true');
+        var target = document.getElementById(btn.getAttribute('aria-controls'));
+        if(target) target.classList.add('open');
+      }
+    });
+  });
+
+})();
+</script>
+</body>
+</html>
